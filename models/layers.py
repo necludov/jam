@@ -452,10 +452,7 @@ def get_timestep_embedding(timesteps, embedding_dim, max_positions=10000):
   half_dim = embedding_dim // 2
   # magic number 10000 is from transformers
   emb = math.log(max_positions) / (half_dim - 1)
-  # emb = math.log(2.) / (half_dim - 1)
   emb = jnp.exp(jnp.arange(half_dim, dtype=jnp.float32) * -emb)
-  # emb = tf.range(num_embeddings, dtype=jnp.float32)[:, None] * emb[None, :]
-  # emb = tf.cast(timesteps, dtype=jnp.float32)[:, None] * emb[None, :]
   emb = timesteps[:, None] * emb[None, :]
   emb = jnp.concatenate([jnp.sin(emb), jnp.cos(emb)], axis=1)
   if embedding_dim % 2 == 1:  # zero pad

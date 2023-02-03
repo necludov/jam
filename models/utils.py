@@ -120,41 +120,6 @@ def get_model_fn(model, params, train=False):
   return model_fn
 
 
-# def get_model_fn(model, params, states, train=False):
-#   """Create a function to give the output of the score-based model.
-
-#   Args:
-#     model: A `flax.linen.Module` object the represent the architecture of score-based model.
-#     params: A dictionary that contains all trainable parameters.
-#     states: A dictionary that contains all mutable states.
-#     train: `True` for training and `False` for evaluation.
-
-#   Returns:
-#     A model function.
-#   """
-
-#   def model_fn(t, x, rng=None):
-#     """Compute the output of the score-based model.
-
-#     Args:
-#       x: A mini-batch of input data.
-#       labels: A mini-batch of conditioning variables for time steps. Should be interpreted differently
-#         for different models.
-#       rng: If present, it is the random state for dropout
-
-#     Returns:
-#       A tuple of (model output, new mutable states)
-#     """
-#     variables = {'params': params, **states}
-#     if not train:
-#       return model.apply(variables, t, x, train=False, mutable=False), states
-#     else:
-#       rngs = {'dropout': rng}
-#       return model.apply(variables, t, x, train=True, mutable=list(states.keys()), rngs=rngs)
-
-#   return model_fn
-
-
 def to_flattened_numpy(x):
   """Flatten a JAX array `x` and convert it to numpy."""
   return np.asarray(x.reshape((-1,)))
