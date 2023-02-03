@@ -11,7 +11,7 @@
 
 Run all the code using `main.py` with different `config` and `mode`.
 * `config` flag takes the path to the config file.
-* `mode` flag takes one of the following values: "train", "eval", "fid_stats". All the modes require a config file. Mind the `data.uniform_dequantization` mode when evaluating statistics on the dataset for FID evaluation.
+* `mode` flag takes one of the following values: "train", "eval", "fid_stats". All the modes require a config file. Mind the `data.uniform_dequantization` flag when evaluating statistics on the dataset for FID evaluation.
 * `workdir` is the path to the working directory for storing states.
 
 For instance, on the clusters with slurm, you would run the code like this inside your sbatch scripts
