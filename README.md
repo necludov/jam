@@ -14,9 +14,9 @@ For the method description see the [Tutorials section](https://github.com/neclud
 ## Tutorials
 |Method|Link|
 |:----|:-----:|
-|Action Matching|[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1-vGU7r8rvsA2m0VWQvzfnsn2pUWfOuYL?usp=sharing)|
-|Entropic (Stochastic) Action Matching|[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1e25hnB0jVr-bTnzEMQgXuVMsZqYfuTlH?usp=sharing)|
-|Unbalanced Action Matching (with reweighting)|[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jnT1A8HI8RGIuLCokdvnm6NZ2f6wONdR?usp=sharing)|
+|Action Matching|[![Open In Colab](https://github.com/necludov/jam/blob/main/colab-badge.svg)](https://colab.research.google.com/drive/1-vGU7r8rvsA2m0VWQvzfnsn2pUWfOuYL?usp=sharing)|
+|Entropic (Stochastic) Action Matching|[![Open In Colab](https://github.com/necludov/jam/blob/main/colab-badge.svg)](https://colab.research.google.com/drive/1e25hnB0jVr-bTnzEMQgXuVMsZqYfuTlH?usp=sharing)|
+|Unbalanced Action Matching (with reweighting)|[![Open In Colab](https://github.com/necludov/jam/blob/main/colab-badge.svg)](https://colab.research.google.com/drive/1jnT1A8HI8RGIuLCokdvnm6NZ2f6wONdR?usp=sharing)|
 
 ## Running the code
 
