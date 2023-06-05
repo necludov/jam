@@ -94,11 +94,10 @@ def train(config, workdir):
     key, *next_key = random.split(key, num=jax.local_device_count() + 1)
     next_key = jnp.asarray(next_key)
     (_, pstate), ploss = p_step_fn((next_key, pstate), batch)
-    loss = flax.jax_utils.unreplicate(ploss).mean()
+    loss = ploss.mean()
 
     if (step % config.train.log_every == 0) and (jax.process_index() == 0):
-      logging_dict = dict(loss=loss)
-      wandb.log(logging_dict, step=step)
+      wandb.log(dict(loss=loss.item()), step=step)
 
     if (step % config.train.save_every == 0) and (jax.process_index() == 0):
       saved_state = flax_utils.unreplicate(pstate)
@@ -116,7 +115,7 @@ def train(config, workdir):
       print(artifacts.shape, num_steps)
       final_x = inverse_scaler(artifacts.reshape(artifact_shape))
       wandb.log(dict(examples=[wandb.Image(tutils.stack_imgs(final_x))],
-                     nfe=jnp.mean(num_steps)), step=step)
+                     nfe=jnp.mean(num_steps).item()), step=step)
 
 
 def evaluate(config, workdir, eval_folder):
@@ -161,7 +160,7 @@ def evaluate(config, workdir, eval_folder):
 
   # init dataloaders
   train_ds, test_ds, _ = datasets.get_dataset(config, additional_dim=None,
-                                              uniform_dequantization=True, evaluation=True)
+                                              uniform_dequantization=False, evaluation=True)
   train_iter, test_iter = iter(train_ds), iter(test_ds)
   scaler = datasets.get_image_scaler(config)
   inverse_scaler = datasets.get_image_inverse_scaler(config)

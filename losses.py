@@ -25,7 +25,10 @@ def get_loss(config, model, q_t, time_sampler, train):
 
 def get_am_loss(config, model, q_t, time_sampler, train):
 
-  w_t_fn = lambda t: (1-t)
+  if config.model.const_weight:
+    w_t_fn = lambda t: jnp.ones_like(t)
+  else:
+    w_t_fn = lambda t: (1-t)
   dwdt_fn = jax.grad(lambda t: w_t_fn(t).sum(), argnums=0)
 
   def am_loss(key, params, sampler_state, batch):

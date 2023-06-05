@@ -128,8 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# slurm out
+# slurm in/out
 *.out
+*.sh
 
 # other stuff
 logs/

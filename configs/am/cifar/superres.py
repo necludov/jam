@@ -23,6 +23,7 @@ def get_config():
   config.model = model = ml_collections.ConfigDict()
   model.name = 'anet'
   model.loss = 'am'
+  model.const_weight = True
   model.ema_rate = 0.9999
   model.normalization = 'GroupNorm'
   model.nonlinearity = 'swish'

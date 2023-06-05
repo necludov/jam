@@ -11,21 +11,21 @@ def generation(key, data, t, t0=0.0, t1=1.0):
   return get_x_t(t0), get_x_t(t1), get_x_t(t)
 
 @utils.register_dynamics(name='superres')
-def superres(key, data, t):
-  x_0 = random.normal(key, shape=data.shape)
+def superres(key, data, t, t0=0.0, t1=1.0):
+  eps = random.normal(key, shape=data.shape)
   x_1 = data
   downscaled_shape = (data.shape[0], data.shape[1]//2, data.shape[2]//2, data.shape[3])
   downscaled_x = jax.image.resize(x_1, downscaled_shape, method='nearest')
   downscaled_x = jax.image.resize(downscaled_x, x_1.shape, method='bilinear')
-  x_0 = x_0.at[:,1::2,:,:].set(downscaled_x[:,1::2,:,:])
-  x_0 = x_0.at[:,:,1::2,:].set(downscaled_x[:,:,1::2,:])
+  x_0 = x_1.at[:,1::2,:,:].set(eps[:,1::2,:,:])
+  x_0 = x_0.at[:,:,1::2,:].set(eps[:,:,1::2,:])
   x_0 = jax.lax.concatenate([x_0, downscaled_x], 3)
   x_1 = jax.lax.concatenate([x_1, downscaled_x], 3)
   x_t = (1-t)*x_0 + t*x_1
   return x_0, x_1, x_t
 
 @utils.register_dynamics(name='color')
-def color(key, data, t):
+def color(key, data, t, t0=0.0, t1=1.0):
   grayscale = data.mean(-1, keepdims=True)
   grayscale = jnp.tile(grayscale, (1,1,1,3))
   x_1 = data
@@ -36,7 +36,7 @@ def color(key, data, t):
   return x_0, x_1, x_t
 
 @utils.register_dynamics(name='vpsde')
-def vpsde(key, data, t):
+def vpsde(key, data, t, t0=0.0, t1=1.0):
   beta_0 = 0.1
   beta_1 = 20.0
   beta = lambda t: (1-t)*beta_0 + t*beta_1
